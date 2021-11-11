@@ -26,14 +26,23 @@ export function activate(context: vscode.ExtensionContext) {
 
     await vscode.commands.executeCommand('workbench.action.terminal.clear');
 
-		const path = context.workspaceState
+		const activeFile = (vscode.window.activeTextEditor as vscode.TextEditor).document.uri.fsPath
+		const railsCode = `Pry::ColorPrinter.pp(eval(File.open("${activeFile}").read))`
 
-		const railsCode = `
-		result = load('/Users/anders/Code/hemnet-ng/tinker.rb')
-		Pry::ColorPrinter.pp(result)
-		`;
+		// DONE
+		// PrettyPrint
+		// Ability to run any file
 
-    terminal.sendText('pwd');
+		// TODO
+		// Improve loading time
+		// Clear screen
+		// Clear/reuse terminal window
+		// Eject to console
+		// Remove HelloWorld script
+
+
+		terminal.sendText('clear');
+    terminal.sendText(`rails runner '${railsCode}'`);
 
 		vscode.window.showInformationMessage('Ran command from rails-scratch!');
 	});
